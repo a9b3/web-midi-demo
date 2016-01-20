@@ -8,14 +8,35 @@ class DrumMachine extends Instrument {
   constructor() {
     super();
 
-    this.osc = {};
-
     this.gain = this.context.createGain();
     this.gain.connect(this.context.destination);
 
     this.filter = this.context.createBiquadFilter();
     this.filter.gain.value = 50;
     this.filter.connect(this.gain);
+  }
+
+  noteToSample(note) {
+    let source = 'sounds/';
+
+    switch(note) {
+    case 48:
+      source += 'kick.wav';
+      break;
+    case 49:
+      source += 'hh.wav';
+      break;
+    case 50:
+      source += 'hh_2.wav';
+      break;
+    case 51:
+      source += 'snare.wav';
+      break;
+    default:
+      return '';
+    }
+
+    return source;
   }
 
   noteOn(note, velocity) {
@@ -25,16 +46,15 @@ class DrumMachine extends Instrument {
     const currVelocity = this.vtov(velocity);
     this.gain.value = currVelocity;
 
-    if (!this.osc[note]) {
-      this.osc[note] = new Osc(this.context, {
-        connect: this.gain,
-      })
-      .setFreq(currFreq)
-      .start();
-    } else {
-      this.osc[note].stop(.05);
-      delete this.osc[note];
-    }
+    if (velocity === 0) return;
+
+    const audio = new Audio();
+    audio.src = this.noteToSample(note);
+    audio.controls = true;
+    audio.autoplay = true;
+
+    const source = this.context.createMediaElementSource(audio);
+    source.connect(this.context.destination);
   }
 
 };
