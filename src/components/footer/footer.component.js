@@ -2,7 +2,7 @@
 
 import './footer.scss';
 
-import midiDevices from 'root/audio-engine/midi-devices.js';
+import midiDevices from 'root/services/audio-engine/midi-devices.js';
 
 import MidiDeviceOptions from 'components/midi-device-options/midi-device-options.component.js';
 

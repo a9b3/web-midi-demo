@@ -1,6 +1,6 @@
 'use strict';
 
-import Osc from 'root/audio-engine/osc.js';
+import Osc from 'root/services/audio-engine/osc.js';
 import store from 'root/store.js';
 
 export function action(audioEngine) {

@@ -8,9 +8,9 @@ import { findDOMNode } from 'react-dom';
 import KeyboardComponent from './keyboard/keyboard.component.js';
 import DrumMachineComponent from './drum-machine/drum-machine.component.js';
 
-import midiDevices from 'root/audio-engine/midi-devices.js';
-import Keyboard from 'root/instruments/keyboard.js';
-import DrumMachine from 'root/instruments/drum-machine.js';
+import midiDevices from 'root/services/audio-engine/midi-devices.js';
+import Keyboard from 'root/services/instruments/keyboard.js';
+import DrumMachine from 'root/services/instruments/drum-machine.js';
 
 export default React.createClass({
 

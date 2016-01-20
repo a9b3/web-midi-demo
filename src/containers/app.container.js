@@ -4,8 +4,8 @@ import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import store from 'root/store.js';
 
-import midiDevices from 'root/audio-engine/midi-devices.js';
-import Keyboard from 'root/instruments/keyboard.js';
+import midiDevices from 'root/services/audio-engine/midi-devices.js';
+import Keyboard from 'root/services/instruments/keyboard.js';
 
 // React Components
 import InstrumentsComponent from 'components/instruments/instruments.component.js';

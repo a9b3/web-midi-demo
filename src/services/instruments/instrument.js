@@ -1,6 +1,6 @@
 'use strict';
 
-import audioEngine from 'root/audio-engine/audio-engine.js';
+import audioEngine from 'root/services/audio-engine/audio-engine.js';
 
 import store from 'root/store.js';
 
