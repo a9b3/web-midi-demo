@@ -5,8 +5,8 @@ import './instruments.scss';
 import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 
-import KeyboardComponent from '../keyboard/keyboard.component.js';
-import DrumMachineComponent from '../drum-machine/drum-machine.component.js';
+import KeyboardComponent from './keyboard/keyboard.component.js';
+import DrumMachineComponent from './drum-machine/drum-machine.component.js';
 
 import midiDevices from 'root/audio-engine/midi-devices.js';
 import Keyboard from 'root/instruments/keyboard.js';
