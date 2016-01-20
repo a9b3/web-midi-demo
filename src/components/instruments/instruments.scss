@@ -1,0 +1,14 @@
+@import '~styles/_variables.scss';
+
+.instruments {
+  display: block;
+  text-align: center;
+
+  select {
+    color: $dark4;
+    background-color: $dark3;
+    border: 0;
+    outline: 0;
+    margin-bottom: 50px;
+  }
+}

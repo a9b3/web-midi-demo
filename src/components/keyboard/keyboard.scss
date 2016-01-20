@@ -1,0 +1,87 @@
+@import '~styles/_variables.scss';
+
+$key-width: 35px;
+$key-height: $key-width * 3;
+$key-border-radius: 2px;
+
+$keyboard-shell-color: $dark3;
+
+$dashboard-height: 80px;
+
+.keyboard {
+  border-radius: 5px;
+  background-color: $keyboard-shell-color;
+  border-bottom: 10px solid rgba(black, .4);
+  box-shadow: 0px 10px 10px rgba(black, .5);
+  margin: 10px;
+  white-space: nowrap;
+
+  div {
+    box-sizing: border-box;
+  }
+
+  .dashboard {
+    height: $dashboard-height;
+    background-color: $keyboard-shell-color;
+    position: relative;
+    box-shadow: 0px 5px 30px $dark2;
+    border-bottom: 10px solid rgba(black, .4);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 20px;
+    z-index: 10;
+  }
+
+  .keys-wrapper {
+    padding: 15px;
+    padding-top: 0;
+  }
+
+  .keys {
+    z-index: 1;
+    height: $key-height;
+    position: relative;
+    background-color: $dark1;
+    box-shadow: 0px 5px 15px rgba(black, .2);
+
+    >* {
+      display: inline-block;
+    }
+
+    %key {
+      background-color: white;
+      width: $key-width;
+      height: $key-height;
+      margin: 0px 1px;
+      box-shadow: 0px 5px 10px rgba($dark3, .5);
+      border-bottom-left-radius: $key-border-radius;
+      border-bottom-right-radius: $key-border-radius;
+      transition: all 0.2s;
+    }
+
+    %key.pressed {
+      box-shadow: inset 0px 10px 30px rgba($dark1, .8);
+      transition: all 0.2s;
+    }
+
+    .whitekey {
+      @extend %key;
+      background-color: white;
+      height: $key-height;
+      border-bottom: 5px solid $dark5;
+    }
+
+    .blackkey {
+      @extend %key;
+      background-color: $dark3;
+      height: $key-height * .6;
+      width: $key-width/2;
+      border-left: 2px solid $dark1;
+      border-right: 2px solid $dark1;
+      border-bottom: 10px solid $dark1;
+      position: absolute;
+      transform: translate(-50%, 0);
+    }
+  }
+
+}

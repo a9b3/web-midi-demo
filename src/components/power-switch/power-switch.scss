@@ -1,0 +1,46 @@
+@import '~styles/_variables.scss';
+
+$switch-height: 30px;
+$switch-width: $switch-height/2;
+
+.power-switch {
+  width: $switch-width;
+  height: $switch-height;
+  background-color: $dark4;
+  box-shadow: inset 0px 5px 3px rgba(black, .4);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .light {
+    width: 6px;
+    height: 6px;
+    background-color: $dark4;
+    position: absolute;
+    border-radius: 3px;
+    left: 30px;
+  }
+
+  .button {
+    margin-top: auto;
+    background-color: $dark1;
+    width: $switch-width;
+    height: $switch-height/2;
+    border-bottom: $switch-height/6 solid rgba(black, .2);
+    box-shadow: 0px 5px 5px rgba(black, .4);
+  }
+
+  &.on {
+    background-color: $green1;
+
+    .light {
+      background-color: $green1;
+      box-shadow: 0px 0px 5px $green1;
+    }
+
+    .button {
+      margin-top: 0px;
+    }
+  }
+}

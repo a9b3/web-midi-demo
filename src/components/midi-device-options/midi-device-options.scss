@@ -1,0 +1,17 @@
+@import '~styles/_variables.scss';
+
+.midi-device-options {
+  margin-top: 50px;
+
+  select {
+    background-color: rgba(black, .5);
+    color: $dark5;
+    border: none;
+    outline: none;
+
+    option {
+      background-color: black;
+      color: $dark5;
+    }
+  }
+}
