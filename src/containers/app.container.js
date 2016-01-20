@@ -11,6 +11,7 @@ import Keyboard from 'root/instruments/keyboard.js';
 import InstrumentsComponent from 'components/instruments/instruments.component.js';
 import MidiDeviceOptions from 'components/midi-device-options/midi-device-options.component.js';
 import Social from 'components/social/social.component.js';
+import FooterComponent from 'components/footer/footer.component.js';
 
 // reference function to unsubscribe from redux store
 let unsubscribe;
@@ -47,26 +48,16 @@ export default React.createClass({
 
     return (
       <div className="app">
+        <Social>
+        </Social>
 
         <InstrumentsComponent activeNotes={activeNotes}
           on={Boolean(activeDevice)}
           activeInstrument={activeInstrument}>
         </InstrumentsComponent>
 
-        {/* <DrumMachine> */}
-        {/* </DrumMachine> */}
-
-        {/* <KeyboardComponent activeNotes={activeNotes} */}
-        {/*   noteOn={keyboard.noteOn.bind(keyboard)} */}
-        {/*   activeDevice={activeDevice}> */}
-        {/* </KeyboardComponent> */}
-
-        <MidiDeviceOptions devices={devices}
-          attach={midiDevices.setActiveDevice.bind(midiDevices)}>
-        </MidiDeviceOptions>
-
-        <Social>
-        </Social>
+        <FooterComponent>
+        </FooterComponent>
       </div>
     );
   },
