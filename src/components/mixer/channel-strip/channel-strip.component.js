@@ -23,7 +23,6 @@ export default React.createClass({
       if (gain >= 0 && gain <= 1) {
         console.log(gain);
         // doit here
-        debugger;
       }
     }
   },
@@ -44,6 +43,9 @@ export default React.createClass({
     const muteOn = channel.isMute;
     const midiOn = true;
     const id = channel.id;
+    const currentAverage = channel.currentAverage;
+
+    console.log(currentAverage);
 
     return (
       <div className="channel-strip">
