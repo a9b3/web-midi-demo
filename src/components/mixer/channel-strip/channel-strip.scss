@@ -120,6 +120,7 @@ $level-bars-height: 350px;
         background-color: $level-bars-bg-color;
         margin: 1px;
         position: relative;
+        overflow: hidden;
 
         .level-indicator-max-bar {
           width: 5px;
