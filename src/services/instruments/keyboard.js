@@ -3,6 +3,8 @@
 import Instrument from './instrument.js';
 import Osc from 'root/services/audio-engine/osc.js';
 
+import mixer from 'root/services/mixer.js';
+
 class Keyboard extends Instrument {
 
   constructor() {
@@ -11,6 +13,7 @@ class Keyboard extends Instrument {
     this.osc = {};
 
     this.gain = this.context.createGain();
+    debugger;
     this.gain.connect(this.context.destination);
 
     this.filter = this.context.createBiquadFilter();
@@ -27,7 +30,7 @@ class Keyboard extends Instrument {
 
     if (!this.osc[note]) {
       this.osc[note] = new Osc(this.context, {
-        connect: this.gain,
+        connect: this.filter,
       })
       .setFreq(currFreq)
       .start();

@@ -14,6 +14,17 @@ function levelToPercent(value) {
 
 export default React.createClass({
 
+  changeGain(e) {
+    const value = e.target.value;
+    if (Boolean(Number(value))) {
+      const gain = Number(value);
+      if (gain >= 0 && gain < 1) {
+        console.log(gain);
+        // doit here
+      }
+    }
+  },
+
   render() {
     const label = 'testasjdhasuidhiasdhiuashd';
     const levels = {
@@ -31,7 +42,11 @@ export default React.createClass({
 
         <div className="sound-meter">
           <div className="controls">
-            <div className="midi">
+            <div className="gain item">
+              <input type="text" placeholder="gain" onChange={this.changeGain}/>
+            </div>
+
+            <div className="midi item">
               <div className="title">
                 <div className={'midi-indicator' + ((midiOn) ? ' on' : '')}>
                 </div>
@@ -42,7 +57,7 @@ export default React.createClass({
             </div>
 
             <div className="end">
-              <div className={'button mute' + ((muteOn) ? ' on' : '')}>
+              <div className={'item button mute' + ((muteOn) ? ' on' : '')}>
                 Mute
               </div>
             </div>

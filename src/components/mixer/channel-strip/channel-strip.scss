@@ -7,7 +7,7 @@ $channel-strip-border-color: darken($channel-strip-bg-color, 10);
 
 $level-bars-bg-color: $dark1;
 $level-indicator-bg-color: #5CF66C;
-$level-bars-height: 150px;
+$level-bars-height: 200px;
 
 .channel-strip {
   display: flex;
@@ -42,14 +42,14 @@ $level-bars-height: 150px;
     justify-content: center;
     padding: 10px;
 
-    >* {
-      padding: 10px;
-    }
-
     .controls {
       display: flex;
       flex-direction: column;
       justify-content: center;
+
+      .item {
+        margin: 5px 10px;
+      }
 
       .end {
         margin-top: auto;
@@ -61,6 +61,12 @@ $level-bars-height: 150px;
         border: 1px solid $dark4;
         border-radius: 5px;
         text-align: center;
+      }
+
+      .gain {
+        input {
+          width: 50px;
+        }
       }
 
       .midi {
