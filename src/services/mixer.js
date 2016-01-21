@@ -10,7 +10,7 @@ class Mixer {
   constructor() {
     this.context = audioEngine.context;
     this.master = new Channel(this.context, {
-      label: 'Master',
+      label: 'master',
     });
 
     this.channels = [];
@@ -21,12 +21,27 @@ class Mixer {
     return this.channels.find(channel => channel.id === id);
   }
 
-  addChannel() {
+  addChannel(label) {
+    const channel = new Channel(this.context, {
+      label,
+    });
 
+    channel.connect(this.master.getConnectNode());
+
+    this.channels.push(channel);
   }
 
-  removeChannel() {
+  removeChannel(id) {
+    let idx;
+    for (let i = 0; i < this.channels.length; i++) {
+      if (this.channels[i].id === id) {
+        idx = i;
+        break;
+      }
+    }
 
+    this.channels[i].disconnect();
+    this.channels.splice(i, 1);
   }
 
 };

@@ -7,7 +7,7 @@ $channel-strip-border-color: darken($channel-strip-bg-color, 10);
 
 $level-bars-bg-color: $dark1;
 $level-indicator-bg-color: #5CF66C;
-$level-bars-height: 200px;
+$level-bars-height: 350px;
 
 .channel-strip {
   display: flex;
@@ -17,6 +17,13 @@ $level-bars-height: 200px;
   background-color: $channel-strip-bg-color;
   border-left: 2px solid $channel-strip-border-color;
   border-right: 2px solid $channel-strip-border-color;
+
+  &.master {
+    .label {
+      background-color: $green1;
+      color: white;
+    }
+  }
 
   &.selected {
     background-color: lighten($channel-strip-bg-color, 10);
@@ -112,10 +119,18 @@ $level-bars-height: 200px;
         height: $level-bars-height;
         background-color: $level-bars-bg-color;
         margin: 1px;
+        position: relative;
+
+        .level-indicator-max-bar {
+          width: 5px;
+          height: 100%;
+          border-top: 1px solid $level-indicator-bg-color;
+          box-sizing: border-box;
+          position: absolute;
+        }
 
         .level-indicator-bar {
           width: 5px;
-          height: 50%;
           background-color: $level-indicator-bg-color;
           transition: height 0.1s;
         }

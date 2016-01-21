@@ -14,6 +14,10 @@ function levelToPercent(value) {
   return value;
 }
 
+function maxToHeight(value) {
+  return 100 - value;
+}
+
 export default React.createClass({
 
   changeGain(channel, e) {
@@ -36,19 +40,22 @@ export default React.createClass({
     const channel = this.props || {};
     const label = channel.label;
     const gainValue = channel.gainValue;
+    const currentGain = channel.currentGain;
+    const currentMax = channel.currentMax;
     const levels = {
-      left: '50%',
-      right: '80%',
+      left: levelToPercent(currentGain.left) + '%',
+      right: levelToPercent(currentGain.right) + '%',
+    };
+    const maxLevels = {
+      left: maxToHeight(currentMax.left) + '%',
+      right: maxToHeight(currentMax.right) + '%',
     };
     const muteOn = channel.isMute;
     const midiOn = true;
     const id = channel.id;
-    const currentAverage = channel.currentAverage;
-
-    console.log(currentAverage);
 
     return (
-      <div className="channel-strip">
+      <div className={`channel-strip ${label}`}>
         <div className="label">
           {label || 'label...'}
         </div>
@@ -63,15 +70,20 @@ export default React.createClass({
                 onChange={this.changeGain.bind(this, channel)}/>
             </div>
 
-            <div className="midi item">
-              <div className="title">
-                <div className={'midi-indicator' + ((midiOn) ? ' on' : '')}>
+            {(() => {
+              if (label === 'master') return;
+              return (
+                <div className="midi item">
+                  <div className="title">
+                    <div className={'midi-indicator' + ((midiOn) ? ' on' : '')}>
+                    </div>
+                    Midi
+                  </div>
+                  <MidiDeviceOptionsComponent>
+                  </MidiDeviceOptionsComponent>
                 </div>
-                Midi
-              </div>
-              <MidiDeviceOptionsComponent>
-              </MidiDeviceOptionsComponent>
-            </div>
+              );
+            })()}
 
             <div className="end">
               <div className={'item button mute' + ((muteOn) ? ' on' : '')}
@@ -83,12 +95,20 @@ export default React.createClass({
 
           <div className="level-bars">
             <div className="level-indicator">
+              <div className="level-indicator-max-bar" style={{
+                transform: `translate(0, ${maxLevels.left})`
+              }}>
+              </div>
               <div className="level-indicator-bar" style={{
                 height: levels.left,
               }}>
               </div>
             </div>
             <div className="level-indicator">
+              <div className="level-indicator-max-bar" style={{
+                transform: `translate(0, ${maxLevels.right})`
+              }}>
+              </div>
               <div className="level-indicator-bar" style={{
                 height: levels.right,
               }}>

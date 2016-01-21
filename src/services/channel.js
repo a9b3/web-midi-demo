@@ -27,11 +27,18 @@ class Channel {
     this.label = opts.label;
     this.gainValue = .5;
     this.isMute = false;
-    this.currentAverage = 0;
+    this.currentGain = {
+      left: 0,
+      right: 0,
+    };
+    this.currentMax = {
+      left: 0,
+      right: 0,
+    };
 
     // gain
     this.gain = this.context.createGain();
-    this.gain.gain.value = .5;
+    this.gain.gain.value = this.gainValue;
     this.gain.connect(this.context.destination);
     this.id = uuid.v4();
 
@@ -44,7 +51,22 @@ class Channel {
       const array = new Uint8Array(this.analyser.frequencyBinCount);
       this.analyser.getByteFrequencyData(array);
       const average = getAverageVolume(array);
-      this.currentAverage = average;
+
+      const arrayRight = new Uint8Array(this.analyserRight.frequencyBinCount);
+      this.analyserRight.getByteFrequencyData(arrayRight);
+      const averageRight = getAverageVolume(arrayRight);
+
+      if (average !== this.currentGain.left || averageRight !== this.currentGain.right) {
+        this.currentGain.left = average;
+        this.currentGain.right = averageRight;
+        if (this.currentGain.left > this.currentMax.left) {
+          this.currentMax.left = this.currentGain.left;
+        }
+        if (this.currentGain.right > this.currentMax.right) {
+          this.currentMax.right = this.currentGain.right;
+        }
+        store.dispatch({type: ''});
+      }
     }.bind(this);
     this.javascriptNode.onaudioprocess = this.onAudioProcess;
 
@@ -52,13 +74,17 @@ class Channel {
     this.analyser = this.context.createAnalyser();
     this.analyser.smoothingTimeConstant = 0.3;
     this.analyser.fftSize = 1024;
+    this.analyserRight = this.context.createAnalyser();
+    this.analyserRight.smoothingTimeConstant = 0.0;
+    this.analyserRight.fftSize = 1024;
 
-    this.sourceNode = this.context.createBufferSource();
-    this.sourceNode.connect(this.analyser);
+    this.splitter = this.context.createChannelSplitter();
+    this.splitter.connect(this.analyser, 0, 0);
+    this.splitter.connect(this.analyserRight, 1, 0);
 
-    this.analyser.connect(this.javascriptNode);
-
-    this.sourceNode.connect(this.gain)
+    // this.analyser.connect(this.javascriptNode);
+    this.analyserRight.connect(this.javascriptNode);
+    this.gain.connect(this.splitter);
   }
 
   changeGain(value) {
@@ -84,6 +110,14 @@ class Channel {
     }
 
     store.dispatch({type: ''});
+  }
+
+  connect(node) {
+    this.gain.connect(node);
+  }
+
+  disconnect() {
+    this.gain.disconnect();
   }
 
   getConnectNode() {

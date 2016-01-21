@@ -3,17 +3,15 @@
 import Instrument from './instrument.js';
 import Osc from 'root/services/audio-engine/osc.js';
 
+import mixer from 'root/services/mixer.js';
+
 class DrumMachine extends Instrument {
 
   constructor() {
     super();
 
     this.gain = this.context.createGain();
-    this.gain.connect(this.context.destination);
-
-    this.filter = this.context.createBiquadFilter();
-    this.filter.gain.value = 50;
-    this.filter.connect(this.gain);
+    this.gain.connect(mixer.master.getConnectNode());
   }
 
   noteToSample(note) {
@@ -54,7 +52,7 @@ class DrumMachine extends Instrument {
     audio.autoplay = true;
 
     const source = this.context.createMediaElementSource(audio);
-    source.connect(this.context.destination);
+    source.connect(this.gain);
   }
 
 };

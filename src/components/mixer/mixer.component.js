@@ -20,6 +20,7 @@ export default React.createClass({
 
   componentDidMount() {
     unsubscribe = store.subscribe(this._onChange);
+    mixer.addChannel('instrument');
   },
 
   componentWillUnmount() {
@@ -34,8 +35,12 @@ export default React.createClass({
   render() {
     return (
       <div className="mixer">
-        {/* <ChannelStripComponent> */}
-        {/* </ChannelStripComponent> */}
+        {mixer.channels.map(channel => {
+          return (
+            <ChannelStripComponent {...channel}>
+            </ChannelStripComponent>
+          );
+        })}
         {/*  */}
         {/* <ChannelStripComponent> */}
         {/* </ChannelStripComponent> */}
