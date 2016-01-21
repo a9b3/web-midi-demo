@@ -1,0 +1,43 @@
+@import '~styles/_variables.scss';
+
+.sound-meter {
+  // padding: 10px;
+  // display: flex;
+  // flex-direction: column;
+  //
+  // /*******************************
+  //  *          LABEL
+  //  *******************************/
+  //
+  // $label-color: $dark5;
+  //
+  // .label {
+  //   color: $label-color;
+  // }
+  //
+  // /*******************************
+  //  *          METER LEVELS
+  //  *******************************/
+  //
+  // $meter-bg-color: $dark1;
+  // $meter-color: #5CF66C;
+  //
+  // .meters {
+  //   .levels {
+  //     display: flex;
+  //     background-color: $meter-bg-color;
+  //     height: 100px;
+  //
+  //     .level-indicator {
+  //       margin-top: auto;
+  //       width: 8px;
+  //       background-color: $meter-color;
+  //       transition: height 0.2s;
+  //
+  //       &:first-child {
+  //         margin-right: 1px;
+  //       }
+  //     }
+  //   }
+  // }
+}

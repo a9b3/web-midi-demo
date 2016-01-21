@@ -12,6 +12,7 @@ import InstrumentsComponent from 'components/instruments/instruments.component.j
 import MidiDeviceOptions from 'components/midi-device-options/midi-device-options.component.js';
 import Social from 'components/social/social.component.js';
 import FooterComponent from 'components/footer/footer.component.js';
+import MixerComponent from 'components/mixer/mixer.component.js';
 
 // reference function to unsubscribe from redux store
 let unsubscribe;
@@ -51,13 +52,28 @@ export default React.createClass({
         <Social>
         </Social>
 
-        <InstrumentsComponent activeNotes={activeNotes}
-          on={Boolean(activeDevice)}
-          activeInstrument={activeInstrument}>
-        </InstrumentsComponent>
+        <div style={{
+          flexGrow: '1',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <InstrumentsComponent activeNotes={activeNotes}
+            on={Boolean(activeDevice)}
+            activeInstrument={activeInstrument}>
+          </InstrumentsComponent>
+        </div>
 
-        <FooterComponent>
-        </FooterComponent>
+        <div style={{
+          width: '100%',
+          marginTop: 'auto',
+        }}>
+          <MixerComponent>
+          </MixerComponent>
+        </div>
+
+        {/* <FooterComponent> */}
+        {/* </FooterComponent> */}
       </div>
     );
   },

@@ -1,0 +1,92 @@
+@import '~styles/_variables.scss';
+
+$channel-strip-width: 100px;
+$channel-strip-bg-color: $dark3;
+$channel-strip-color: $dark4;
+$channel-strip-border-color: darken($channel-strip-bg-color, 10);
+
+$level-bars-bg-color: $dark1;
+$level-indicator-bg-color: #5CF66C;
+$level-bars-height: 150px;
+
+.channel-strip {
+  display: flex;
+  flex-direction: column;
+  width: $channel-strip-width;
+  color: $channel-strip-color;
+  background-color: $channel-strip-bg-color;
+  border-left: 2px solid $channel-strip-border-color;
+  border-right: 2px solid $channel-strip-border-color;
+
+  &.selected {
+    background-color: lighten($channel-strip-bg-color, 10);
+  }
+
+  &+.channel-strip {
+    border-left: 0;
+  }
+
+  .label {
+    font-weight: 500;
+    padding: 2px 5px;
+    border-bottom: 1px solid $channel-strip-border-color;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-style: italic;
+  }
+
+  .sound-meter {
+    flex-grow: 1;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+
+    >* {
+      padding: 10px;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .end {
+        margin-top: auto;
+      }
+
+      .button {
+        font-size: 12px;
+        padding: 0 5px;
+        border: 1px solid $dark4;
+        border-radius: 5px;
+      }
+
+      .mute.on {
+        color: white;
+        background-color: $red2;
+      }
+    }
+
+    .level-bars {
+      align-self: center;
+      display: flex;
+      align-items: stretch;
+
+      .level-indicator {
+        align-self: center;
+        display: flex;
+        align-items: flex-end;
+        height: $level-bars-height;
+        background-color: $level-bars-bg-color;
+        margin: 1px;
+
+        .level-indicator-bar {
+          width: 5px;
+          height: 50%;
+          background-color: $level-indicator-bg-color;
+          transition: height 0.1s;
+        }
+      }
+    }
+  }
+}
