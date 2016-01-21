@@ -18,6 +18,8 @@ function getAverageVolume(array) {
   return average;
 }
 
+let _count = 0;
+
 class Channel {
 
   constructor(context, opts = {}) {
@@ -59,12 +61,21 @@ class Channel {
       if (average !== this.currentGain.left || averageRight !== this.currentGain.right) {
         this.currentGain.left = average;
         this.currentGain.right = averageRight;
+
+        if (_count === 50) {
+          this.currentMax.left = 0;
+          this.currentMax.right = 0;
+          _count = 0;
+        }
+        _count++;
+
         if (this.currentGain.left > this.currentMax.left) {
           this.currentMax.left = this.currentGain.left;
         }
         if (this.currentGain.right > this.currentMax.right) {
           this.currentMax.right = this.currentGain.right;
         }
+
         store.dispatch({type: ''});
       }
     }.bind(this);
