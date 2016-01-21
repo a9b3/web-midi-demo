@@ -94,6 +94,10 @@ $level-bars-height: 200px;
         color: white;
         background-color: $red2;
       }
+
+      .mute:hover {
+        cursor: pointer;
+      }
     }
 
     .level-bars {

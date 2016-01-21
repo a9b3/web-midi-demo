@@ -9,8 +9,16 @@ class Mixer {
 
   constructor() {
     this.context = audioEngine.context;
-    this.master = new Channel(this.context);
+    this.master = new Channel(this.context, {
+      label: 'Master',
+    });
+
     this.channels = [];
+  }
+
+  getChannelById(id) {
+    if (id === this.master.id) return this.master;
+    return this.channels.find(channel => channel.id === id);
   }
 
   addChannel() {

@@ -13,8 +13,7 @@ class Keyboard extends Instrument {
     this.osc = {};
 
     this.gain = this.context.createGain();
-    debugger;
-    this.gain.connect(this.context.destination);
+    this.gain.connect(mixer.master.getConnectNode());
 
     this.filter = this.context.createBiquadFilter();
     this.filter.gain.value = 50;
