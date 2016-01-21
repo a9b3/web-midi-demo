@@ -1,6 +1,6 @@
 @import '~styles/_variables.scss';
 
-$channel-strip-width: 100px;
+$channel-strip-width: 120px;
 $channel-strip-bg-color: $dark3;
 $channel-strip-color: $dark4;
 $channel-strip-border-color: darken($channel-strip-bg-color, 10);
@@ -40,6 +40,7 @@ $level-bars-height: 150px;
     display: flex;
     align-items: stretch;
     justify-content: center;
+    padding: 10px;
 
     >* {
       padding: 10px;
@@ -59,6 +60,28 @@ $level-bars-height: 150px;
         padding: 0 5px;
         border: 1px solid $dark4;
         border-radius: 5px;
+        text-align: center;
+      }
+
+      .midi {
+        .title {
+          display: flex;
+          align-items: center;
+        }
+
+        .midi-indicator {
+          width: 6px;
+          height: 6px;
+          border-radius: 3px;
+          background-color: $dark4;
+          display: inline-block;
+          margin-right: 10px;
+
+          &.on {
+            background-color: $level-indicator-bg-color;
+            box-shadow: 0px 0px 5px $level-indicator-bg-color;
+          }
+        }
       }
 
       .mute.on {

@@ -14,6 +14,7 @@ export default React.createClass({
       <div className="mixer">
         <ChannelStripComponent>
         </ChannelStripComponent>
+
         <ChannelStripComponent>
         </ChannelStripComponent>
 

@@ -5,12 +5,9 @@ import './midi-device-options.scss';
 import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 
-export default React.createClass({
+import midiDevices from 'root/services/audio-engine/midi-devices.js';
 
-  // https://facebook.github.io/react/docs/reusable-components.html
-  propTypes: {
-    devices: React.PropTypes.array,
-  },
+export default React.createClass({
 
   renderDevices(devices) {
     if (!devices || !devices.length) {
@@ -30,16 +27,16 @@ export default React.createClass({
   },
 
   onChange(event) {
-    this.props.attach(event.target.value);
+    midiDevices.setActiveDevice(event.target.value);
   },
 
   render() {
-    const devices = this.props.devices;
+    const devices = midiDevices.devices;
 
     return (
       <span className="midi-device-options">
         <select onChange={this.onChange}>
-          <option value="default">Select</option>
+          <option value="default">...</option>
           {this.renderDevices(devices)}
         </select>
       </span>

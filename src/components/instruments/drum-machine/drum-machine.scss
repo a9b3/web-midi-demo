@@ -39,7 +39,7 @@ $wooden-panel-color: darken($lightwood, 7);
     margin: 8px;
     border-bottom: 8px solid darken($drumpad-color, 40);
     border-radius: 2px;
-    box-shadow: 0px 0px 10px rgba(black, .5);
+    box-shadow: 0px 2px 5px rgba(black, .5);
 
     &.pressed {
       box-shadow: inset 0px 5px 10px rgba(black, .5);
