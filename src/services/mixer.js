@@ -1,8 +1,6 @@
 'use strict';
 
-import store from 'root/store.js';
 import audioEngine from 'root/services/audio-engine/audio-engine.js';
-
 import Channel from './channel.js';
 
 class Mixer {
@@ -16,6 +14,9 @@ class Mixer {
     this.channels = [];
   }
 
+  /**
+   *
+   */
   getChannelById(id) {
     if (id === this.master.id) return this.master;
     return this.channels.find(channel => channel.id === id);
@@ -46,4 +47,40 @@ class Mixer {
 
 };
 
-export default new Mixer();
+// expose singleton, there should only be one instance of Mixer
+const mixer = new Mixer();
+export default mixer;
+
+
+/******************************
+    Actions
+******************************/
+
+export const actions = {
+
+  addChannel(label) {
+    return dispatch => {
+      return {
+        type: 'MIXER_ADD_CHANNEL',
+        label,
+      };
+    };
+  }
+
+};
+
+
+/******************************
+    Reducer
+******************************/
+
+export function reducer(state = {}, action) {
+  switch(action.type) {
+  case 'MIXER_ADD_CHANNEL':
+    return Object.assign({}, state, {
+
+    });
+  default:
+    return state;
+  }
+};

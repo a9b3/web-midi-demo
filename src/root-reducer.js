@@ -1,9 +1,16 @@
+/*
+ * Entry point for reducers. Import reducers from services here and combine them
+ * here. Services that wish to expose a reducer should export reducer.
+ */
 'use strict';
 
 import { combineReducers } from 'redux';
 import { routeReducer } from 'redux-simple-router';
 
 const reducers = {};
+
+import { reducer as mixerReducer } from 'services/mixer.js';
+reducers.mixer = mixerReducer;
 
 reducers.activeInstrument = (state = 'keyboard', action) => {
   switch(action.type) {

@@ -5,6 +5,7 @@ import './mixer.scss';
 import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import store from 'root/store.js';
+import { mixer as mixerActions } from 'root/actions.js';
 
 import ChannelStripComponent from 'components/mixer/channel-strip/channel-strip.component.js'
 
@@ -19,6 +20,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
+    console.log('mixerActions', mixerActions);
     unsubscribe = store.subscribe(this._onChange);
     mixer.addChannel('instrument');
     mixer.addChannel('vocals');
