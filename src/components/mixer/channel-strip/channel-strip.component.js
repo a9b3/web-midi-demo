@@ -89,7 +89,7 @@ export default React.createClass({
     const midiOn = true;
 
     return (
-      <div className={'channel-strip' + ((label === 'master') ? ' master' : '')}>
+      <div className={'animated fadeIn channel-strip' + ((label === 'master') ? ' master' : '')}>
         <div className="label">
           {label}
         </div>

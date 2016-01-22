@@ -21,10 +21,12 @@ $mixer-font-color: $dark1;
     padding: 10px;
     font-size: 20px;
     color: $dark4;
+    transition: opacity .1s;
 
     &:hover {
       cursor: pointer;
       opacity: 1;
+      transition: opacity .1s;
     }
   }
 
