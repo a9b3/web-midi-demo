@@ -19,6 +19,11 @@ $level-bars-height: 270px;
   border-right: 2px solid $channel-strip-border-color;
   transition: background-color .1s;
 
+  &.selected {
+    background-color: lighten($channel-strip-bg-color, 2);
+    transition: background-color .1s;
+  }
+
   &:hover {
     background-color: lighten($channel-strip-bg-color, 2);
     transition: background-color .1s;

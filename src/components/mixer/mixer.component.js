@@ -35,16 +35,29 @@ export default React.createClass({
     store.dispatch(actions.mixer.addChannel());
   },
 
+  selectChannelHandler(id) {
+    store.dispatch(actions.mixer.selectChannel(id));
+  },
+
   render() {
     const mixer = this.state.mixer;
 
     return (
       <div className="mixer">
         {mixer.channels.map(channel => {
+          const params = {
+            selectChannel: this.selectChannelHandler,
+            ...channel,
+          };
+          params.selected = mixer.selectedChannel.some(c => {
+            if (!c) debugger;
+            return c.id === channel.id
+          });
+
           return (
             <ChannelStripComponent
               key={channel.id}
-              {...channel}>
+              {...params}>
             </ChannelStripComponent>
           );
         })}

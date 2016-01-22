@@ -80,6 +80,9 @@ export default React.createClass({
   },
 
   render() {
+    const selected = this.props.selected;
+    const selectChannelHandler = this.props.selectChannel;
+
     const channel = this.state.channel;
     const levels = this.state.gain;
     const maxLevels = this.state.max;
@@ -89,8 +92,11 @@ export default React.createClass({
     const midiOn = Boolean(channel.midiDevice);
 
     return (
-      <div className={'animated fadeIn channel-strip' + ((label === 'master') ? ' master' : '')}>
-        <div className="label">
+      <div className={'animated fadeIn channel-strip' +
+        ((label === 'master') ? ' master' : '') +
+        ((selected) ? ' selected' : '')}>
+        <div className="label"
+          onClick={(label !== 'master') ? selectChannelHandler.bind(null, channel.id) : ''}>
           {label}
         </div>
 

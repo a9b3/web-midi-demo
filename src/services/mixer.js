@@ -26,6 +26,14 @@ export const actions = {
     };
   },
 
+  selectChannel(id) {
+    mixer.selectChannel(id);
+
+    return {
+      type: 'UPDATE_MIXER',
+    };
+  },
+
 };
 
 
@@ -52,6 +60,7 @@ class Mixer {
     });
 
     this.channels = [];
+    this.selectedChannel = [];
   }
 
   getChannelById(id) {
@@ -80,6 +89,18 @@ class Mixer {
 
     this.channels[idx].disconnect();
     this.channels.splice(idx, 1);
+    this.selectedChannel = [];
+  }
+
+  selectChannel(id) {
+    this.selectedChannel = [];
+    let found;
+    this.channels.some(c => {
+      if (c.id === id) {
+        found = c;
+      }
+    });
+    this.selectedChannel.push(found);
   }
 
 };
