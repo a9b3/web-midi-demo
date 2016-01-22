@@ -7,7 +7,7 @@ $channel-strip-border-color: darken($channel-strip-bg-color, 10);
 
 $level-bars-bg-color: $dark1;
 $level-indicator-bg-color: #5CF66C;
-$level-bars-height: 350px;
+$level-bars-height: 270px;
 
 .channel-strip {
   display: flex;
@@ -34,22 +34,34 @@ $level-bars-height: 350px;
   }
 
   %titlebar {
-    font-weight: 500;
     padding: 2px 5px;
     border-bottom: 1px solid $channel-strip-border-color;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-style: italic;
   }
 
   .label {
     @extend %titlebar;
+    font-weight: 500;
+    font-style: italic;
   }
 
   .instruments-choices {
     @extend %titlebar;
     background-color: $blue3;
     color: white;
+  }
+
+  .delete {
+    @extend %titlebar;
+    background-color: $red4;
+    color: $red1;
+    opacity: 0.5;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
   }
 
   .sound-meter {

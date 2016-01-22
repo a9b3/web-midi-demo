@@ -43,6 +43,9 @@ export default React.createClass({
           );
         })}
 
+        <div className="add">
+        </div>
+
         <div className="end">
           <ChannelStripComponent {...mixer.master}>
           </ChannelStripComponent>

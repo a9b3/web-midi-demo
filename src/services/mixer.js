@@ -14,9 +14,17 @@ export const actions = {
     mixer.addChannel(label);
 
     return {
-      type: 'MIXER_ADD_CHANNEL',
+      type: 'UPDATE_MIXER',
     };
-  }
+  },
+
+  removeChannel(id) {
+    mixer.removeChannel(id);
+
+    return {
+      type: 'UPDATE_MIXER',
+    };
+  },
 
 };
 
@@ -27,7 +35,7 @@ export const actions = {
 
 export function reducer(state = mixer, action) {
   switch(action.type) {
-  case 'MIXER_ADD_CHANNEL':
+  case 'UPDATE_MIXER':
     return Object.assign({}, state, mixer);
   default:
     return state;
@@ -70,8 +78,8 @@ class Mixer {
       }
     }
 
-    this.channels[i].disconnect();
-    this.channels.splice(i, 1);
+    this.channels[idx].disconnect();
+    this.channels.splice(idx, 1);
   }
 
 };

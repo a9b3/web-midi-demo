@@ -9,6 +9,8 @@ import SoundMeterComponent from '../sound-meter/sound-meter.component.js';
 import MidiDeviceOptionsComponent from 'components/midi-device-options/midi-device-options.component.js';
 
 import mixer from 'root/services/mixer.js';
+import store from 'root/store.js';
+import * as actions from 'root/actions.js';
 
 function levelToPercent(value) {
   return value;
@@ -58,19 +60,23 @@ export default React.createClass({
     });
   },
 
-  changeGain(channel, e) {
-    const value = e.target.value;
-    if (Boolean(Number(value))) {
-      const gain = Number(value);
-      if (gain >= 0 && gain <= 1) {
-        console.log(gain);
-        // doit here
-      }
-    }
+  changeGain(e) {
+    // const value = e.target.value;
+    // if (Boolean(Number(value))) {
+    //   const gain = Number(value);
+    //   if (gain >= 0 && gain <= 1) {
+    //     console.log(gain);
+    //     // doit here
+    //   }
+    // }
   },
 
-  muteHandler(channel) {
-    channel.mute();
+  muteHandler() {
+    this.state.channel.mute();
+  },
+
+  deleteHandler(id) {
+    store.dispatch(actions.mixer.removeChannel(this.state.channel.id));
   },
 
   render() {
@@ -104,7 +110,7 @@ export default React.createClass({
                 {gainValue || 'value'}
               </div>
               <input type="text" placeholder="gain"
-                onChange={this.changeGain.bind(this, channel)}/>
+                onChange={this.changeGain}/>
             </div>
 
             {(() => {
@@ -124,7 +130,7 @@ export default React.createClass({
 
             <div className="end">
               <div className={'item button mute' + ((muteOn) ? ' on' : '')}
-                onClick={this.muteHandler.bind(null, channel)}>
+                onClick={this.muteHandler}>
                 Mute
               </div>
             </div>
@@ -153,6 +159,16 @@ export default React.createClass({
             </div>
           </div>
         </div>
+
+        {(() => {
+          if (label === 'master') return;
+          return (
+            <div className="delete"
+              onClick={this.deleteHandler}>
+              Delete
+            </div>
+          );
+        })()}
       </div>
     );
   },
