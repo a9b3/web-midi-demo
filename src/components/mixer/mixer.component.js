@@ -5,9 +5,9 @@ import './mixer.scss';
 import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import store from 'root/store.js';
+import * as actions from 'root/actions.js';
 
 import ChannelStripComponent from 'components/mixer/channel-strip/channel-strip.component.js'
-import * as actions from 'root/actions.js';
 
 // reference function to unsubscribe from redux store
 let unsubscribe;
@@ -20,8 +20,6 @@ export default React.createClass({
 
   componentDidMount() {
     unsubscribe = store.subscribe(this._onChange);
-
-    store.dispatch(actions.mixer.addChannel('keyboard'));
   },
 
   componentWillUnmount() {

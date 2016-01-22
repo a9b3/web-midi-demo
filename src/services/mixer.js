@@ -14,9 +14,6 @@ class Mixer {
     this.channels = [];
   }
 
-  /**
-   *
-   */
   getChannelById(id) {
     if (id === this.master.id) return this.master;
     return this.channels.find(channel => channel.id === id);
