@@ -86,7 +86,7 @@ export default React.createClass({
     const label = channel.label;
     const gainValue = channel.gainValue;
     const muteOn = channel.isMute;
-    const midiOn = true;
+    const midiOn = Boolean(channel.midiDevice);
 
     return (
       <div className={'animated fadeIn channel-strip' + ((label === 'master') ? ' master' : '')}>

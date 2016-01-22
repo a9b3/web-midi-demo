@@ -51,6 +51,8 @@ class Channel {
 
     this._analyserCallbacks = [];
     this._initAnalyser();
+
+    this.midiDevice = undefined;
   }
 
   _initAnalyser() {
