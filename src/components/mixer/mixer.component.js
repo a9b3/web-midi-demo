@@ -21,6 +21,10 @@ export default React.createClass({
   componentDidMount() {
     unsubscribe = store.subscribe(this._onChange);
     mixer.addChannel('instrument');
+    mixer.addChannel('vocals');
+    mixer.addChannel('drums');
+    mixer.addChannel('guitars');
+    mixer.addChannel('bass');
   },
 
   componentWillUnmount() {
@@ -41,9 +45,6 @@ export default React.createClass({
             </ChannelStripComponent>
           );
         })}
-        {/*  */}
-        {/* <ChannelStripComponent> */}
-        {/* </ChannelStripComponent> */}
 
         <div className="end">
           <ChannelStripComponent {...mixer.master}>

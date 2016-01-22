@@ -15,10 +15,48 @@ function levelToPercent(value) {
 }
 
 function maxToHeight(value) {
-  return 100 - value;
+  return (100 - value) + '%';
 }
 
 export default React.createClass({
+
+  getInitialState() {
+    return {
+      channel: mixer.getChannelById(this.props.id),
+      gain: {
+        left: 0,
+        right: 0,
+      },
+      max: {
+        left: maxToHeight(levelToPercent(0)),
+        right: maxToHeight(levelToPercent(0)),
+      },
+    };
+  },
+
+  componentDidMount() {
+    const channel = this.state.channel;
+    channel.analyser(this.analyserCallback.bind(this));
+  },
+
+  componentWillUnmount() {
+    const channel = this.state.channel;
+    channel.removeAnalyserCb(this.analyserCallback.bind(this));
+  },
+
+  analyserCallback(gain, max) {
+    this.setState({
+      channel: this.state.channel,
+      gain: {
+        left: levelToPercent(gain.left) + '%',
+        right: levelToPercent(gain.right) + '%',
+      },
+      max: {
+        left: maxToHeight(levelToPercent(max.left)),
+        right: maxToHeight(levelToPercent(max.right)),
+      }
+    });
+  },
 
   changeGain(channel, e) {
     const value = e.target.value;
@@ -31,33 +69,27 @@ export default React.createClass({
     }
   },
 
-  muteHandler(id) {
-    const channel = mixer.getChannelById(id);
+  muteHandler(channel) {
     channel.mute();
   },
 
   render() {
-    const channel = this.props || {};
+    const channel = this.state.channel;
+    const levels = this.state.gain;
+    const maxLevels = this.state.max;
     const label = channel.label;
     const gainValue = channel.gainValue;
-    const currentGain = channel.currentGain;
-    const currentMax = channel.currentMax;
-    const levels = {
-      left: levelToPercent(currentGain.left) + '%',
-      right: levelToPercent(currentGain.right) + '%',
-    };
-    const maxLevels = {
-      left: maxToHeight(currentMax.left) + '%',
-      right: maxToHeight(currentMax.right) + '%',
-    };
     const muteOn = channel.isMute;
     const midiOn = true;
-    const id = channel.id;
 
     return (
       <div className={`channel-strip ${label}`}>
         <div className="label">
           {label || 'label...'}
+        </div>
+
+        <div className="instruments-choices">
+          Keyboard
         </div>
 
         <div className="sound-meter">
@@ -87,7 +119,7 @@ export default React.createClass({
 
             <div className="end">
               <div className={'item button mute' + ((muteOn) ? ' on' : '')}
-                onClick={this.muteHandler.bind(null, id)}>
+                onClick={this.muteHandler.bind(null, channel)}>
                 Mute
               </div>
             </div>

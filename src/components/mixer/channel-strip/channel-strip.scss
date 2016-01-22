@@ -33,7 +33,7 @@ $level-bars-height: 350px;
     border-left: 0;
   }
 
-  .label {
+  %titlebar {
     font-weight: 500;
     padding: 2px 5px;
     border-bottom: 1px solid $channel-strip-border-color;
@@ -42,12 +42,23 @@ $level-bars-height: 350px;
     font-style: italic;
   }
 
+  .label {
+    @extend %titlebar;
+  }
+
+  .instruments-choices {
+    @extend %titlebar;
+    background-color: $blue3;
+    color: white;
+  }
+
   .sound-meter {
     flex-grow: 1;
     display: flex;
     align-items: stretch;
     justify-content: center;
     padding: 10px;
+    user-select: none;
 
     .controls {
       display: flex;

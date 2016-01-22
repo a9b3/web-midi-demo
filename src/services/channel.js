@@ -22,6 +22,11 @@ let _count = 0;
 
 class Channel {
 
+  /**
+   * @param {AudioContext} context
+   * @param {=Object} opts
+   * @param {=String} opts.label
+   */
   constructor(context, opts = {}) {
     if (!context) throw new Error('Must pass in instance of audioContext');
     this.context = context;
@@ -44,18 +49,23 @@ class Channel {
     this.gain.connect(this.context.destination);
     this.id = uuid.v4();
 
+    this._analyserCallbacks = [];
+    this._initAnalyser();
+  }
+
+  _initAnalyser() {
     // javascript node
-    this.javascriptNode = this.context.createScriptProcessor(2048, 1 ,1);
-    this.javascriptNode.connect(this.context.destination);
+    this._javascriptNode = this.context.createScriptProcessor(2048, 1 ,1);
+    this._javascriptNode.connect(this.context.destination);
 
     // http://www.smartjava.org/content/exploring-html5-web-audio-visualizing-sound
-    this.onAudioProcess = function() {
-      const array = new Uint8Array(this.analyser.frequencyBinCount);
-      this.analyser.getByteFrequencyData(array);
+    this._onAudioProcess = function() {
+      const array = new Uint8Array(this._analyser.frequencyBinCount);
+      this._analyser.getByteFrequencyData(array);
       const average = getAverageVolume(array);
 
-      const arrayRight = new Uint8Array(this.analyserRight.frequencyBinCount);
-      this.analyserRight.getByteFrequencyData(arrayRight);
+      const arrayRight = new Uint8Array(this._analyserRight.frequencyBinCount);
+      this._analyserRight.getByteFrequencyData(arrayRight);
       const averageRight = getAverageVolume(arrayRight);
 
       if (average !== this.currentGain.left || averageRight !== this.currentGain.right) {
@@ -76,26 +86,34 @@ class Channel {
           this.currentMax.right = this.currentGain.right;
         }
 
-        store.dispatch({type: ''});
+        this._analyserCallbacks.forEach(cb => cb(this.currentGain, this.currentMax));
       }
     }.bind(this);
-    this.javascriptNode.onaudioprocess = this.onAudioProcess;
+    this._javascriptNode.onaudioprocess = this._onAudioProcess;
 
     // analyser
-    this.analyser = this.context.createAnalyser();
-    this.analyser.smoothingTimeConstant = 0.3;
-    this.analyser.fftSize = 1024;
-    this.analyserRight = this.context.createAnalyser();
-    this.analyserRight.smoothingTimeConstant = 0.0;
-    this.analyserRight.fftSize = 1024;
+    this._analyser = this.context.createAnalyser();
+    this._analyser.smoothingTimeConstant = 0.3;
+    this._analyser.fftSize = 1024;
+    this._analyserRight = this.context.createAnalyser();
+    this._analyserRight.smoothingTimeConstant = 0.0;
+    this._analyserRight.fftSize = 1024;
 
-    this.splitter = this.context.createChannelSplitter();
-    this.splitter.connect(this.analyser, 0, 0);
-    this.splitter.connect(this.analyserRight, 1, 0);
+    this._splitter = this.context.createChannelSplitter();
+    this._splitter.connect(this._analyser, 0, 0);
+    this._splitter.connect(this._analyserRight, 1, 0);
 
-    // this.analyser.connect(this.javascriptNode);
-    this.analyserRight.connect(this.javascriptNode);
-    this.gain.connect(this.splitter);
+    this._analyser.connect(this._javascriptNode);
+    this.gain.connect(this._splitter);
+  }
+
+  analyser(cb) {
+    this._analyserCallbacks.push(cb);
+  }
+
+  removeAnalyserCb(cb) {
+    const i = this._analyserCallbacks.indexOf(cb);
+    this._analyserCallbacks.splice(i, 1);
   }
 
   changeGain(value) {
