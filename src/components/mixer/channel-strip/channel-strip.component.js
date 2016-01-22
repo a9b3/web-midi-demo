@@ -91,7 +91,7 @@ export default React.createClass({
     return (
       <div className={'channel-strip' + ((label === 'master') ? ' master' : '')}>
         <div className="label">
-          {label || 'label...'}
+          {label}
         </div>
 
         {(() => {

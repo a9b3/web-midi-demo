@@ -31,7 +31,7 @@ class Channel {
     if (!context) throw new Error('Must pass in instance of audioContext');
     this.context = context;
 
-    this.label = opts.label;
+    this.label = opts.label || 'default';
     this.gainValue = .5;
     this.isMute = false;
     this.currentGain = {

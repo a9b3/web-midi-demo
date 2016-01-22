@@ -31,6 +31,10 @@ export default React.createClass({
     this.setState(store.getState());
   },
 
+  addChannel() {
+    store.dispatch(actions.mixer.addChannel());
+  },
+
   render() {
     const mixer = this.state.mixer;
 
@@ -38,12 +42,15 @@ export default React.createClass({
       <div className="mixer">
         {mixer.channels.map(channel => {
           return (
-            <ChannelStripComponent {...channel}>
+            <ChannelStripComponent
+              key={channel.id}
+              {...channel}>
             </ChannelStripComponent>
           );
         })}
 
-        <div className="add">
+        <div className="add" onClick={this.addChannel}>
+          <i className="fa fa-plus"></i>
         </div>
 
         <div className="end">
