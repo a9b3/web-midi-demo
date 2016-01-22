@@ -1,6 +1,6 @@
 # web-midi-demo
 
-![Screenshot](https://raw.githubusercontent.com/esayemm/web-midi-demo/master/screenshot/screencap.gif)
+![Screenshot](https://raw.githubusercontent.com/esayemm/web-midi-demo/master/screenshot/screenshot.png)
 
 [Live Demo](http://webmidi.samlau.us/)
 
