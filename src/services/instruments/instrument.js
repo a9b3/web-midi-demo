@@ -1,15 +1,40 @@
 'use strict';
 
 import audioEngine from 'root/services/audio-engine/audio-engine.js';
-
 import store from 'root/store.js';
 
-function action(instrument) {
-  return {
-    type: 'UPDATE_INSTRUMENT',
-    instrument,
-  };
-}
+
+/******************************
+    Actions
+******************************/
+
+export const actions = {
+
+  updateInstrument(instrument) {
+    return {
+      type: 'UPDATE_INSTRUMENT',
+      instrument,
+    };
+  },
+
+};
+
+
+/******************************
+    Reducer
+******************************/
+
+export function reducer(state = {
+  activeNotes: [],
+}, action) {
+  switch(action.type) {
+  case 'UPDATE_INSTRUMENT':
+    return Object.assign({}, state, action.instrument);
+  default:
+    return state;
+  }
+};
+
 
 class Instrument {
 
@@ -39,7 +64,7 @@ class Instrument {
       this.activeNotes.push(note);
     }
 
-    store.dispatch(action(this));
+    store.dispatch(actions.updateInstrument(this));
   }
 
   onMIDIMessage(res) {

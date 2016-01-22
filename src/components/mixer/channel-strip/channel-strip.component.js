@@ -88,9 +88,14 @@ export default React.createClass({
           {label || 'label...'}
         </div>
 
-        <div className="instruments-choices">
-          Keyboard
-        </div>
+        {(() => {
+          if (label === 'master') return;
+          return (
+            <div className="instruments-choices">
+              Keyboard
+            </div>
+          );
+        })()}
 
         <div className="sound-meter">
           <div className="controls">

@@ -1,7 +1,6 @@
 'use strict';
 
 import Instrument from './instrument.js';
-import Osc from 'root/services/audio-engine/osc.js';
 
 import mixer from 'root/services/mixer.js';
 

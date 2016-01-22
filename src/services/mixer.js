@@ -3,6 +3,38 @@
 import audioEngine from 'root/services/audio-engine/audio-engine.js';
 import Channel from './channel.js';
 
+
+/******************************
+    Actions
+******************************/
+
+export const actions = {
+
+  addChannel(label) {
+    mixer.addChannel(label);
+
+    return {
+      type: 'MIXER_ADD_CHANNEL',
+    };
+  }
+
+};
+
+
+/******************************
+    Reducer
+******************************/
+
+export function reducer(state = mixer, action) {
+  switch(action.type) {
+  case 'MIXER_ADD_CHANNEL':
+    return Object.assign({}, state, mixer);
+  default:
+    return state;
+  }
+};
+
+
 class Mixer {
 
   constructor() {
@@ -47,36 +79,3 @@ class Mixer {
 // expose singleton, there should only be one instance of Mixer
 const mixer = new Mixer();
 export default mixer;
-
-
-/******************************
-    Actions
-******************************/
-
-export const actions = {
-
-  addChannel(label) {
-    mixer.addChannel(label);
-
-    return {
-      type: 'MIXER_ADD_CHANNEL',
-    };
-  }
-
-};
-
-
-/******************************
-    Reducer
-******************************/
-
-export function reducer(state = mixer, action) {
-  switch(action.type) {
-  case 'MIXER_ADD_CHANNEL':
-    return Object.assign({}, state, {
-      ...mixer,
-    });
-  default:
-    return state;
-  }
-};

@@ -3,18 +3,41 @@
 import audioEngine from 'root/services/audio-engine/audio-engine.js';
 import store from 'root/store.js';
 
-export function action(midiDevices) {
-  return {
-    type: 'UPDATE_DEVICES',
-    midiDevices,
-  };
+
+/******************************
+    Actions
+******************************/
+
+export const actions = {
+
+  updateMidiDevice(midiDevices) {
+    return {
+      type: 'UPDATE_DEVICES',
+      midiDevices,
+    };
+  },
+
+  changeActiveInstrument(activeInstrument) {
+    return {
+      type: 'CHANGE_ACTIVE_INSTRUMENT',
+      activeInstrument,
+    };
+  },
+
 };
 
-export function changeActiveInstrument(activeInstrument) {
-  return {
-    type: 'CHANGE_ACTIVE_INSTRUMENT',
-    activeInstrument,
-  };
+
+/******************************
+    Reducer
+******************************/
+
+export function reducer(state = mixer, action) {
+  switch(action.type) {
+  case 'MIXER_ADD_CHANNEL':
+    return Object.assign({}, state, mixer);
+  default:
+    return state;
+  }
 };
 
 class MidiDevices {

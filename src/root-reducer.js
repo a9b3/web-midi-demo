@@ -12,23 +12,15 @@ const reducers = {};
 import { reducer as mixerReducer } from 'services/mixer.js';
 reducers.mixer = mixerReducer;
 
+import { reducer as instrumentReducer } from 'services/instruments/instrument.js';
+reducers.instrument = instrumentReducer;
+
 reducers.activeInstrument = (state = 'keyboard', action) => {
   switch(action.type) {
   case 'CHANGE_ACTIVE_INSTRUMENT':
     return action.activeInstrument;
   default:
     return state;
-  }
-};
-
-reducers.instrument = (state = {
-  activeNotes: [],
-}, action) => {
-  switch(action.type) {
-    case 'UPDATE_INSTRUMENT':
-      return Object.assign({}, state, action.instrument);
-    default:
-      return state;
   }
 };
 
