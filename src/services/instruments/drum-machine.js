@@ -1,7 +1,6 @@
 'use strict';
 
 import Instrument from './instrument.js';
-
 import mixer from 'root/services/mixer.js';
 
 class DrumMachine extends Instrument {
