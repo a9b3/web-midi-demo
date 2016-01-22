@@ -59,11 +59,10 @@ export default mixer;
 export const actions = {
 
   addChannel(label) {
-    return dispatch => {
-      return {
-        type: 'MIXER_ADD_CHANNEL',
-        label,
-      };
+    mixer.addChannel(label);
+
+    return {
+      type: 'MIXER_ADD_CHANNEL',
     };
   }
 
@@ -74,11 +73,11 @@ export const actions = {
     Reducer
 ******************************/
 
-export function reducer(state = {}, action) {
+export function reducer(state = mixer, action) {
   switch(action.type) {
   case 'MIXER_ADD_CHANNEL':
     return Object.assign({}, state, {
-
+      ...mixer,
     });
   default:
     return state;

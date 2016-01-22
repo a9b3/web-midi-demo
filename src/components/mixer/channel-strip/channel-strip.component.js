@@ -83,7 +83,7 @@ export default React.createClass({
     const midiOn = true;
 
     return (
-      <div className={`channel-strip ${label}`}>
+      <div className={'channel-strip' + ((label === 'master') ? ' master' : '')}>
         <div className="label">
           {label || 'label...'}
         </div>
