@@ -11,16 +11,6 @@ body,
   height: 100%;
 }
 
-.app {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  // background: linear-gradient(darken($paper, 10) 10%, $paper 100%);
-  // background: linear-gradient(darken($turquoise3, 10) 10%, $turquoise1 100%);
-  background-color: lighten($dark1, 30);
-}
-
 .debug {
   @extend .border;
   @extend .bg;

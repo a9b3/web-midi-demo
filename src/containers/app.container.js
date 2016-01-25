@@ -1,5 +1,7 @@
 'use strict';
 
+import './app.scss';
+
 import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import store from 'root/store.js';
