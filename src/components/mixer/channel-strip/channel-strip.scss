@@ -15,9 +15,9 @@ $level-bars-height: 270px;
   width: $channel-strip-width;
   color: $channel-strip-color;
   background-color: $channel-strip-bg-color;
-  border-left: 2px solid $channel-strip-border-color;
-  border-right: 2px solid $channel-strip-border-color;
   transition: background-color .1s;
+  margin-right: 3px;
+  box-shadow: 0px 0px 10px rgba(black, .2);
 
   &.selected {
     background-color: lighten($channel-strip-bg-color, 2);
@@ -40,8 +40,8 @@ $level-bars-height: 270px;
     background-color: lighten($channel-strip-bg-color, 10);
   }
 
-  &+.channel-strip {
-    border-left: 0;
+  &:last-child {
+    margin-right: 0;
   }
 
   %titlebar {
