@@ -13,7 +13,6 @@ import Keyboard from 'root/services/instruments/keyboard.js';
 import InstrumentsComponent from 'components/instruments/instruments.component.js';
 import MidiDeviceOptions from 'components/midi-device-options/midi-device-options.component.js';
 import Social from 'components/social/social.component.js';
-import FooterComponent from 'components/footer/footer.component.js';
 import MixerComponent from 'components/mixer/mixer.component.js';
 
 // reference function to unsubscribe from redux store
@@ -73,9 +72,6 @@ export default React.createClass({
           <MixerComponent>
           </MixerComponent>
         </div>
-
-        {/* <FooterComponent> */}
-        {/* </FooterComponent> */}
       </div>
     );
   },
